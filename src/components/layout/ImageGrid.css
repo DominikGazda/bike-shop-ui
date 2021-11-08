@@ -1,0 +1,19 @@
+
+  
+  .images div{
+    margin-top:20px;
+    align-items: center;
+  }
+  
+  .body-hr {
+    width: 85%;
+    background-color: black;
+    margin-bottom: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    border: 1px solid black;
+    align-items: center;
+    text-align: center;
+  }
+  
