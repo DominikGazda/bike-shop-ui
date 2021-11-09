@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Row } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
 import { Route, Switch, useLocation, useParams } from "react-router-dom";
-import DeliveryDescription from "./DeliveryDescription";
 import UserInformation from "./UserInformation";
 import UserOrders from "./UserOrders";
 import UserAccountSidebar from "../components/UserAccountSidebar";
@@ -34,7 +32,6 @@ const UserAccount = (props) => {
                 'Authorization':`Bearer ${jwt}`
             }
         })
-        
         const data = response.data;
         setOrders(data);
     })

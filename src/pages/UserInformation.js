@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 const UserInformation = (props) => {
 
     const user = {...props.userDetails};
+    console.log(user);
     return (
         <TableContainer component={Paper} style={{width:'45%'}}>
         <Table sx={{ minWidth: 500, maxWidth:300}} aria-label="simple table">

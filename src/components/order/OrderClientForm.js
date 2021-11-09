@@ -1,6 +1,7 @@
+import React from 'react';
 import { Button, Col, Row } from "react-bootstrap";
 import { Formik, Field, ErrorMessage, Form} from 'formik';
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo, useState, useCallback } from "react";
 import ShipmentDetails from "./ShipmentDetails";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentMethod from "./PaymentMethod";
@@ -9,6 +10,7 @@ import OrderClientSummaryCart from "./OrderClientSummaryCart";
 import { useHistory, useLocation } from "react-router";
 import AddOrder from "../../store/actions";
 import axios from "axios";
+import apiSpec from '../../api/apiSpec';
 
 const OrderClientForm = (props) => {
   const location = useLocation();
@@ -92,7 +94,21 @@ const OrderClientForm = (props) => {
       setNewsletter(event.target.checked);
   }
 
-  console.log(memoizedUrl);
+  const [user, setUser] = React.useState({});
+  const [accountAddress, setAccountAddress] = React.useState(false);
+
+  const username = useSelector(state => state.userLogin.login);
+
+  const fetchApi = useCallback(async() => {
+    const response = await axios.get(apiSpec.USER_DETAILS.url, {params:{username}})
+    const data = response.data;
+    setUser(data);
+});
+
+console.log(user);
+useState(() => {
+  fetchApi();
+},[]);
 
     return (
         
@@ -148,6 +164,7 @@ const OrderClientForm = (props) => {
      >
        {({ isSubmitting }) => (
          <Form>
+           {accountAddress && <div>
            <Field type="name" name="name" placeholder="Imię" className="form-control"/>
            <ErrorMessage name="name" component="div"  className="alert alert-danger"/>
            <Field type="surname" name="surname" placeholder="Nazwisko" className="form-control"/>
@@ -163,6 +180,7 @@ const OrderClientForm = (props) => {
            <ErrorMessage name="phone" component="div" className="alert alert-danger"/>
            <Field type="email" name="email" placeholder="Adres e-mail" className="form-control"/>
            <ErrorMessage name="email" component="div" className="alert alert-danger"/>
+           </div>}
            <hr/>
            <Row>
              <ShipmentDetails deliveryPrice={deliveryPrice} deliveryName={deliveryName}/>
@@ -190,7 +208,7 @@ const OrderClientForm = (props) => {
            </button>
          </Form>
        )}
-     </Formik>
+     </Formik>}
    </div>
             </Col>
 

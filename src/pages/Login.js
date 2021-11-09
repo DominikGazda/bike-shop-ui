@@ -2,13 +2,31 @@ import React, {Fragment} from 'react';
 import { Card, TextField } from "@material-ui/core";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import apiSpec from '../api/apiSpec';
 import { useMemo,useState ,useEffect, useCallback } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles, Paper, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
 
 
 const SinginSchema = Yup.object().shape({
@@ -21,13 +39,19 @@ const SinginSchema = Yup.object().shape({
 
 const Login = (props) => {
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
-    let adminLogin = false;
+    const [errorMessage, setErrormessage] = useState('');
 
-    if(location.pathname.includes('adm')){
-        adminLogin = true;
-    }
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
+
 
     const fetchApi = useCallback(async({login, password}) => {
         try{
@@ -43,18 +67,28 @@ const Login = (props) => {
                   password
               }
           });
+          console.log(response.status);
           const data = response.data;
-          console.log(data);
-          dispatch({type:'LOGIN', login, password, isLoggedIn:true, jwt:data});
+           const isAdmin = jwt_decode(data).authorities.map((auth) => {
+            console.log(auth);
+            if (auth.authority === "ROLE_ADMIN") {
+                return true;
+            } else {
+                return false;
+            }})[0]; 
+          dispatch({type:'LOGIN', login, password, isLoggedIn:true, isAdmin, jwt:data});
           setIsLoading(false);
       } catch(error){
+          if(error.response.status === 403){
+              setErrormessage('Niepoprawny login, lub hasło. Spróbuj ponownie');
+              setOpen(true);
+          }
        }
       });
 
     return (
         <Fragment>
-            {adminLogin ?<center><h1 style={{marginTop:'2.7%'}}>Logowanie administratora</h1></center>:<center><h1 style={{marginTop:'2.7%'}}>Logowanie użytkownika</h1></center>}
-            
+            <center><h1 style={{marginTop:'2.7%'}}>Logowanie użytkownika</h1></center>
         <Formik
             initialValues={{
                 login: '',
@@ -92,6 +126,11 @@ const Login = (props) => {
                 </Card>
             )}
         </Formik>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleCloseSnackbar} style={{zIndex:'2'}}>
+            <Alert onClose={handleCloseSnackbar} severity="error" style={{zIndex:'1000', position:'relative'}}>
+                {errorMessage}
+          </Alert>
+      </Snackbar>
         </Fragment>
     );
 }

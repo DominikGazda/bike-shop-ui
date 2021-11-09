@@ -24,6 +24,7 @@ import Login from "./pages/Login";
 import UserAccount from "./pages/UserAccount";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AdminAccount from "./pages/AdminAccount";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -53,9 +54,13 @@ function App() {
               <Route path="/home">
                 <Home />
               </Route>
-              <Route path = "/account">
+              <Route path = "/account/adm">
+                <AdminAccount/>
+                </Route>
+              <Route path = "/account" >
                 <UserAccount/>
               </Route>
+            
               <Route path = "/login/adm" exact>
                 <Login/>
                 </Route>

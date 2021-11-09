@@ -149,13 +149,14 @@ export function addOrder (state={loading:false}, action){
   return state;
 }
 
-export function userLogin (state={login:"", password:"", isLoggedIn:false, jwt:''}, action){
+export function userLogin (state={login:"", password:"", isLoggedIn:false, isAdmin:false, jwt:''}, action){
   if(action.type === 'LOGIN'){
     return {
       ...state,
       login: action.login,
       password: action.password,
       isLoggedIn:true,
+      isAdmin:action.isAdmin,
       jwt: action.jwt
     }
   } else if(action.type === 'LOGOUT'){
@@ -164,6 +165,7 @@ export function userLogin (state={login:"", password:"", isLoggedIn:false, jwt:'
       login:'',
       password:'',
       isLoggedIn:false,
+      isAdmin:false,
       jwt:''
     }
   }
