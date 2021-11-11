@@ -18,6 +18,9 @@ const OrderClientForm = (props) => {
   const deliveryPrice = useSelector(state => state.items.delivery.price);
   const deliveryName = useSelector(state => state.items.delivery.name);
   const orderedItems = useSelector(state => state.items.items);
+  const [user, setUser] = React.useState({});
+  const [accountAddress, setAccountAddress] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const [statute, setStatute] = useState(true);
@@ -32,8 +35,6 @@ const OrderClientForm = (props) => {
   const addOrderApi = async function  (user) {
     try{
       //Dane uzytkownika
-      const userDetails = {...user};
-      console.log(userDetails);
       //Zamowienie
         const bikes = orderedItems.filter(item => item.itemType === 'BIKES');
         const accessories = orderedItems.filter(item => item.itemType ==='ACCESSORIES');
@@ -61,7 +62,6 @@ const OrderClientForm = (props) => {
             data:{
               "status": "NEW",
               "orderDate": Date.now(),
-              userDetails,
               saveOrderedItemsRequest:{
                 bikes,
                 bags,
@@ -74,6 +74,9 @@ const OrderClientForm = (props) => {
                 maintenances,
                 racks,
                 tools
+              },
+              address:{
+                ...user
               }
             }
         });
@@ -85,6 +88,10 @@ const OrderClientForm = (props) => {
     }
   }
 
+  const handleAccountAddressChange = (setFieldValue) => {
+      setFieldValue('name','name11');
+      setAccountAddress(!accountAddress);
+  }
 
   const handleStatuteChange = (event) => {
     setStatute(event.target.checked);
@@ -93,9 +100,6 @@ const OrderClientForm = (props) => {
   const handleNewsletterChange = (event) => {
       setNewsletter(event.target.checked);
   }
-
-  const [user, setUser] = React.useState({});
-  const [accountAddress, setAccountAddress] = React.useState(false);
 
   const username = useSelector(state => state.userLogin.login);
 
@@ -116,9 +120,21 @@ useState(() => {
    <div>
      <h1>Dane zamawiającego</h1>
      <Formik
-       initialValues={{ name:'',surname:'',street:'',houseNumber:'',localNumber:'',postalCode:'',zipCode:'',city:'',phone:'',email: '', phone:'', statute:''}}
+       initialValues={{ 
+         name:user.name,
+         surname:user.surname,
+         street:user.street,
+         houseNumber:user.houseNumber,
+         localNumber:user.localNumber,
+         postalCode:user.postalCode,
+         zipCode:user.zipCode,
+         city:user.city,
+         phone:user.phone,
+         email: user.email, 
+         phone:user.phone, 
+         statute:user.statute}}
        validate={values => {
-         const errors = {};
+         let errors = {};
          if (!values.email) {
            errors.email = 'Adres e-mail nie może być pusty';
          } else if (
@@ -148,23 +164,53 @@ useState(() => {
         if(statute === false){
           errors.statute = "Zamówienie dostępne po zaakceptowaniu regulaminu";
         }
-        
+        if(!accountAddress){
+          errors = {};
+        }
 
          return errors;
        }}
        onSubmit={(values, { setSubmitting }) => {
 
+        if(!accountAddress){
+          values = null
+          // values = {
+          //   name:user.name,
+          //   surname:user.surname,
+          //   street:user.street,
+          //   houseNumber:user.houseNumber,
+          //   localNumber:user.localNumber,
+          //   postalCode:user.postalCode,
+          //   zipCode:user.zipCode,
+          //   city:user.city,
+          //   phone:user.phone,
+          //   email: user.email, 
+          //   phone:user.phone, 
+          //   statute:user.statute
+          }
         //  setTimeout(() => {
         //    alert(JSON.stringify(values, null, 2));
-        // setSubmitting(false);   
-        //  }, 400);
         setSubmitting(false);   
+        //  }, 400);
+        // setSubmitting(true);   
+        // console.log(values);
         addOrderApi(values);
        }}
      >
-       {({ isSubmitting }) => (
+       {({ isSubmitting, setFieldValue}) => (
          <Form>
-           {accountAddress && <div>
+           {!accountAddress ? <div>
+           <Field type="name" name="name" placeholder={user.name} className="form-control" disabled={true}/>
+           <Field type="surname" name="surname" placeholder={user.surname} className="form-control" disabled={true}/>
+           <Field type="address" name="street" placeholder={user.address?.street} disabled={true}/>
+           <Field type="address" name="houseNumber" placeholder={user.address?.houseNumber} style={{width:'15%'}} disabled={true}/>
+           <Field type="address" name="localNumber" placeholder={user.address?.localNumber} style={{width:'15%'}} disabled={true} /><br/>
+           <Field type="postalCode" name="zipCode" placeholder={user.address?.postalCode} disabled={true} />
+           <Field type="postalCode" name="city" placeholder={user.address?.city} disabled={true}/>
+           <Field type="phone" name="phone" placeholder={user.address?.phone} className="form-control" disabled={true}/>
+           <Field type="email" name="email" placeholder={user.address?.email} className="form-control" disabled={true}/>
+           </div> :
+           <div>
            <Field type="name" name="name" placeholder="Imię" className="form-control"/>
            <ErrorMessage name="name" component="div"  className="alert alert-danger"/>
            <Field type="surname" name="surname" placeholder="Nazwisko" className="form-control"/>
@@ -180,7 +226,33 @@ useState(() => {
            <ErrorMessage name="phone" component="div" className="alert alert-danger"/>
            <Field type="email" name="email" placeholder="Adres e-mail" className="form-control"/>
            <ErrorMessage name="email" component="div" className="alert alert-danger"/>
-           </div>}
+           </div>
+           }
+           <br/>
+           <Button onClick={() => {
+                   setAccountAddress(!accountAddress);
+                   if(accountAddress === true){
+                     setFieldValue('name', user.name);
+                     setFieldValue('surname',user.surname);
+                     setFieldValue('street', user.address?.street);
+                     setFieldValue('houseNumber', user.address?.houseNumber);
+                     setFieldValue('localNumber', user.address?.localNumber);
+                     setFieldValue('zipCode', user.address?.zipCode);
+                     setFieldValue('city', user.address?.city);
+                     setFieldValue('phone', user.address?.phone);
+                     setFieldValue('email', user.address?.email);
+                   } else {
+                    setFieldValue('name','');
+                    setFieldValue('surname','');
+                    setFieldValue('street','');
+                    setFieldValue('houseNumber','');
+                    setFieldValue('localNumber','');
+                    setFieldValue('zipCode','');
+                    setFieldValue('city','');
+                    setFieldValue('phone','');
+                    setFieldValue('email','');
+                   }
+           }} class="btn btn-primary">Chcę wprowadzić inny adres dostawy</Button>
            <hr/>
            <Row>
              <ShipmentDetails deliveryPrice={deliveryPrice} deliveryName={deliveryName}/>
@@ -208,7 +280,7 @@ useState(() => {
            </button>
          </Form>
        )}
-     </Formik>}
+     </Formik>
    </div>
             </Col>
 

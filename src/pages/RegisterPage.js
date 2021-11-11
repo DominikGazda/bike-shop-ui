@@ -48,6 +48,19 @@ const RegisterPage = (props) => {
     }
 
     const fetchApi = useCallback(async(values) => {
+        
+        const address = {
+            name:values.name,
+            surname:values.surname,
+            street:values.street,
+            houseNumber:values.houseNumber,
+            localNumber:values.localNumber,
+            zipCode:values.zipCode,
+            city:values.city,
+            phone:values.phone,
+            email:values.email
+        }
+
         try{
           setIsLoading(true);
           const response = await axios({
@@ -58,6 +71,7 @@ const RegisterPage = (props) => {
               },
               data:{
                   ...values,
+                  address
               }
           });
           const data = response.data;
