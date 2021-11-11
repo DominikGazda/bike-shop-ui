@@ -42,12 +42,14 @@ export default function UserAccountSidebar() {
           </Typography>
         </MenuItem>
         </Link>
+        <Link to="/account/options" style={{textDecoration:'none', color:'black'}}>
         <MenuItem>
           <ListItemText>Ustawienia</ListItemText>
           <Typography variant="body2" color="text.secondary">
             <Screwdriver/>
           </Typography>
         </MenuItem>
+        </Link>
         <MenuItem onClick={logOut}>
           <ListItemText>Wyloguj</ListItemText>
           <Typography variant="body2" color="text.secondary">
