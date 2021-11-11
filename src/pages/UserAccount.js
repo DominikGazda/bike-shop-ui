@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import apiSpec from '../api/apiSpec';
+import AccountOptions from "./AccountOptions";
 
 const UserAccount = (props) => {
     const dispatch = useDispatch();
@@ -55,6 +56,9 @@ const UserAccount = (props) => {
             </Route>
             <Route path="/account/orders" exact>
                 <UserOrders userOrders={orders}/>
+            </Route>
+            <Route path="/account/options" exact>
+                <AccountOptions userDetails={user}/>
             </Route>
         </Switch>
           </Col>
