@@ -12,7 +12,6 @@ import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   items: addItemToCart,
-  fetchItems,
   fetchBikeDataListFlag,
   fetchPartsDataListFlag,
   fetchAccessoriesListFlag,

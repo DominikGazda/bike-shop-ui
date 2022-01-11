@@ -105,21 +105,6 @@ export default function addItemToCart(
   return state;
 }
 
-export function fetchItems(state = [], action){
-
-  if(action.type === 'FETCH_BIKES'){
-    return DUMMY_BIKES;
-  } else if (action.type === 'FETCH_PARTS'){
-    return DUMMY_PARTS;
-  } else if (action.type === 'FETCH_ACCESSORIES'){
-    return DUMMY_ACCESORIES;
-  } else if (action.type === 'FETCH_WORKSHOP'){
-    return DUMMY_WORKSHOP;
-  } else {
-    return state;
-  }
-}
-
 export function fetchBikeDataListFlag(state = {flag:false, value:'', item:{}}, action){
     if(action.type === 'FETCH_FILTERED_BIKES'){
       // console.log(action.value);

@@ -20,6 +20,7 @@ const AccountOptions = (props) => {
     const history = useHistory();
     const [errorMessage, setErrormessage] = useState('');
     const jwt = useSelector(state => state.userLogin.jwt);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [passwordChange, setPassowrdChange] = useState(false);
     const [personalDataChange, setPersonalDataChange] = useState(false);
