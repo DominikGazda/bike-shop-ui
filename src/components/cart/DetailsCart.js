@@ -1,5 +1,4 @@
 import { CardColumns, Card, Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import DetailsTable from "../layout/DetailsTable";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
@@ -11,8 +10,6 @@ const DetailsCart = (props) => {
   
   const item = props.item;
   const addItemHandler = () => {  
-    // item.amount = +amountInput.current.value;
-    // console.log(item);
     dispatch({ type: "ADD_ITEM", itemDetails: {
       item,
       amount: +amountInput.current.value

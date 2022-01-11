@@ -18,8 +18,10 @@ export default function addItemToCart(
  
     if(existingItem){
       const existingItemIndex = state.items.findIndex((item) => item.id === action.itemDetails.item.id && item.itemType === action.itemDetails.item.itemType);
+     
       const newArray = [...state.items];
       newArray[existingItemIndex].itemAmount += action.itemDetails.amount;
+      
       return{
         ...state,
         items: newArray,
@@ -31,8 +33,10 @@ export default function addItemToCart(
        console.log('nowy element')
        const newArray = state.items.slice();
        const newItem = action.itemDetails.item;
+       
        newItem.itemAmount = action.itemDetails.amount;
        newArray.push(action.itemDetails.item);
+       
        return{
          items: newArray,
          itemsCounter: state.itemsCounter + newItem.itemAmount,
@@ -41,10 +45,14 @@ export default function addItemToCart(
     }
   } else if (action.type === "DELETE_ITEM"){
     const existingItem = state.items.find((item) => item.id === action.itemDetails.item.id && item.itemType === action.itemDetails.item.itemType);
+    
     const existingItemIndex = state.items.findIndex((item) => item.id === action.itemDetails.item.id && item.itemType === action.itemDetails.item.itemType);
+   
     const newItems = [...state.items];
+    
     if(existingItem.itemAmount === 1){
       const filteredArray = newItems.filter((item) => !(item.id === action.itemDetails.item.id && item.itemType === action.itemDetails.item.itemType));
+      
       return{
         items: filteredArray,
         itemsCounter: state.itemsCounter - action.itemDetails.amount,
@@ -52,6 +60,7 @@ export default function addItemToCart(
       }
     } else {
         newItems[existingItemIndex].itemAmount -= action.itemDetails.amount;
+       
         return{
           items: newItems,
           itemsCounter: state.itemsCounter - action.itemDetails.amount,
@@ -60,8 +69,10 @@ export default function addItemToCart(
     }
   } else if (action.type === "CHANGE_AMOUNT"){
     const existingItemIndex = state.items.findIndex((item) => item.id === action.itemDetails.item.id && item.itemType === action.itemDetails.item.itemType);
+    
     const newItems = [...state.items];
     newItems[existingItemIndex].itemAmount = action.itemDetails.amount;
+    
     const tempItemsPrice = newItems.reduce((acc, now) => {
       return acc + (now.price * now.itemAmount);
     }, 0);
@@ -134,6 +145,30 @@ export function fetchPartsDataListFlag(state={flag:false, value:'', item:{}}, ac
   return state;
 }
 
+export function fetchAccessoriesListFlag(state={flag:false, value:'',item:{}}, action){
+  if(action.type === 'FETCH_FILTERED_ACCESSORIES'){
+    return {
+      ...state,
+      flag: action.flag,
+      value: action.value,
+      item: action.item
+    }
+  }
+  return state;
+}
+
+export function fetchWorkshopListFlag(state={flag:false,value:'',item:{}}, action){
+  if(action.type === 'FETCH_FILTERED_WORKSHOP'){
+    return {
+      ...state,
+      flag: action.flag,
+      value: action.value,
+      item: action.item
+    }
+  }
+  return state;
+}
+
 export function addOrder (state={loading:false}, action){
   if(action.type === 'ADD_ORDER_REQUEST'){
     return {
@@ -172,174 +207,20 @@ export function userLogin (state={login:"", password:"", isLoggedIn:false, isAdm
   return state;
 }
 
-const DUMMY_BIKES = [
-  {
-    id: "bike1",
-    name: "Rower elektryczny R-RAYMON CrossRay E 7.0",
-    price: 12000,
-    image: "./../../assets/bike.png",
-    itemAmount:0,
-    type:"bike"
-  },
-  {
-    id: "bike2",
-    name: "Rower KANDS MTB 5000",
-    price: 13000,
-    image: "./../../assets/bike.png",
-    itemAmount:0,
-    type:"bike"
-  },
-  {
-    id: "bike3",
-    name: "Rower KANDS CROSS WTS9322 0222",
-    price: 14000,
-    image: "./../../assets/bike.png",
-    itemAmount:0,
-    type:"bike"
-  },
-  {
-    id: "bike4",
-    name: "Rower Kolareczka prosto ze sklepu",
-    price: 14000,
-    image: "./../../assets/bike.png",
-    itemAmount:0,
-    type:"bike"
-  },
-  {
-    id: "bike5",
-    name: "Rower GRAVEL 5.0 totalnie kozacki",
-    price: 14000,
-    image: "./../../assets/bike.png",
-    itemAmount:0,
-    type:"bike"
-  },
-];
-
-const DUMMY_PARTS = [
-  {
-    id: "part1",
-    name: "Część rowerowa numer jeden",
-    price: 12000,
-    image: "./../../assets/part.png",
-    itemAmount:0,
-    type:"parts"
-  },
-  {
-    id: "part2",
-    name: "Część rowerowa numer dwa",
-    price: 13000,
-    image: "./../../assets/part.png",
-    itemAmount:0,
-    type:"parts"
-  },
-  {
-    id: "part3",
-    name: "Część rowerowa numer trzy",
-    price: 14000,
-    image: "./../../assets/part.png",
-    itemAmount:0,
-    type:"parts"
-  },
-  {
-    id: "part4",
-    name: "Część rowerowa numer cztery",
-    price: 14000,
-    image: "./../../assets/part.png",
-    itemAmount:0,
-    type:"parts"
-  },
-  {
-    id: "part5",
-    name: "Część rowerowa numer pięć",
-    price: 14000,
-    image: "./../../assets/part.png",
-    itemAmount:0,
-    type:"parts"
+export function modalHandler (state={showModal:false, orderId:0, flag:false}, action){
+  if(action.type === 'SHOW_MODAL'){
+    return {
+      ...state,
+      showModal: true,
+      orderId: action.orderId
+    }
   }
-];
-
-const DUMMY_ACCESORIES = [
-  {
-    id: "acc1",
-    name: "Pompka rowerowa",
-    price: 12000,
-    image: "./../../assets/pompka.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "acc2",
-    name: "Łańcuch szimano",
-    price: 13000,
-    image: "./../../assets/pompka.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "acc3",
-    name: "Przerzuta szimanoh",
-    price: 14000,
-    image: "./../../assets/pompka.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "acc4",
-    name: "Kozackie przerzutki ",
-    price: 14000,
-    image: "./../../assets/pompka.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "acc5",
-    name: "Pedały też z szimano normalnie",
-    price: 14000,
-    image: "./../../assets/pompka.png",
-    itemAmount:0,
-    type:"accessories"
+  if(action.type === 'HIDE_MODAL'){
+    return {
+      ...state,
+      showModal: false,
+      flag: action.flag
+    }
   }
-];
-
-const DUMMY_WORKSHOP = [
-  {
-    id: "shop1",
-    name: "Olejek do smarowania numer jeden",
-    price: 12000,
-    image: "./../../assets/shop.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "shop2",
-    name: "Olejek do smarowania numer dwa",
-    price: 13000,
-    image: "./../../assets/shop.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "shop3",
-    name: "Olejek do smarowania numer trzy",
-    price: 14000,
-    image: "./../../assets/shop.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "shop4",
-    name: "Olejek do smarowania numer cztery",
-    price: 14000,
-    image: "./../../assets/shop.png",
-    itemAmount:0,
-    type:"accessories"
-  },
-  {
-    id: "shop5",
-    name: "Olejek do smarowania numer pięć",
-    price: 14000,
-    image: "./../../assets/shop.png",
-    itemAmount:0,
-    type:"accessories"
-  }
-];
+  return state;
+}

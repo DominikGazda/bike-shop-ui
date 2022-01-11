@@ -4,7 +4,6 @@ import classes from "./Item.module.css";
 const Item = (props) => {
   const { id, bikeName, price, bikeImage } = props.item;
 
-  console.log(bikeImage);
   return (
     <Fragment>
       <img src={bikeImage} alt={1} />

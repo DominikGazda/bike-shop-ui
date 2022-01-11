@@ -9,9 +9,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router";
 
-
-// import Cloud from '@mui/icons-material/Cloud';
-
 export default function UserAccountSidebar() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,7 +19,6 @@ export default function UserAccountSidebar() {
         history.push('/home');
     }
     
-
   return (
     <Paper sx={{ width: 320, maxWidth: '100%' }}>
       <MenuList>
@@ -39,6 +35,14 @@ export default function UserAccountSidebar() {
           <ListItemText>Zamówienia</ListItemText>
           <Typography variant="body2" color="text.secondary">
             <CartFill/>
+          </Typography>
+        </MenuItem>
+        </Link>
+        <Link to="/account/service" style={{textDecoration:'none', color:'black'}}>
+        <MenuItem>
+          <ListItemText>Serwis</ListItemText>
+          <Typography variant="body2" color="text.secondary">
+            <Power/>
           </Typography>
         </MenuItem>
         </Link>

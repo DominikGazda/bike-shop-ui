@@ -7,31 +7,8 @@ import Bikes from "../../pages/Bikes";
 import ItemCard from "../commons/ItemCard";
 
 const BikesList = (props) => {
-  // const [bikesData, setBikesData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // const fetchApi = useCallback(async() =>{
-  //   try{
-  //     setIsLoading(true);
-  //     const response = await axios({
-  //         method:'GET',
-  //         url:"http://localhost:8765/api/bikes",
-  //         headers:{
-  //             'Content-Type': 'application/json',
-  //         }
-  //     });
-  //     const data = response.data;
-  //     setBikesData(data);
-  //     setIsLoading(false);
-  // } catch(error){
-  //  }
-  // },[])
-
-  // useEffect(() => {
-  //   fetchApi();
-  // },[fetchApi]);
-
   const bikesData = props.bikesData;
+
   return (
     <Row>
       {bikesData.map((data) => (
@@ -46,4 +23,5 @@ const BikesList = (props) => {
     </Row>
   );
 };
+
 export default BikesList;

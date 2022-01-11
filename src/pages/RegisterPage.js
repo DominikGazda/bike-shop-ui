@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { Card, TextField } from "@material-ui/core";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import apiSpec from '../api/apiSpec';
 import { useMemo,useState ,useEffect, useCallback } from "react";
 import axios from 'axios';
@@ -42,6 +42,7 @@ const RegisterPage = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
     let adminLogin = false;
+    const history = useHistory()
 
     if(location.pathname.includes('adm')){
         adminLogin = true;
@@ -78,7 +79,7 @@ const RegisterPage = (props) => {
           const userName = values.username;
           const password = values.password;
           console.log(data);
-          dispatch({type:'LOGIN', userName, password, isLoggedIn:true, jwt:data});
+        //   dispatch({type:'LOGIN', userName, password, isLoggedIn:true, jwt:data});
           setIsLoading(false);
       } catch(error){
        }
@@ -111,7 +112,8 @@ const RegisterPage = (props) => {
                 console.log('elo')
                 console.log({values});
                 fetchApi(values);
-                
+                history.push('/home');
+                dispatch({type:"LOGOUT"});
             }}
         >
             {({errors}) => (

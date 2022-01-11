@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 import ItemDetails from "./pages/ItemDetails";
 import { Fragment, useState } from "react";
 import ModalCard from "./components/UI/ModalCard";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./store";
 import OrderDetails from "./pages/OrderDetails";
 import OrderClientDetails from "./pages/OrderClientDetails";
@@ -25,9 +25,14 @@ import UserAccount from "./pages/UserAccount";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AdminAccount from "./pages/AdminAccount";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ModalDeleteCard from "./components/UI/ModalDeleteCard";
+import CustomAccessoriesSidebar from "./components/accesories/CustomAccessoriesSidebar";
+import CustomWorkshopSidebar from "./components/workshop/CustomWorkshopSidebar";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const showModalHandler = () => {
     setShowModal(true);
@@ -37,11 +42,21 @@ function App() {
     setShowModal(false);
   };
 
+  const showModalDeleteHandler = () => {
+    setShowDeleteModal(true);
+  };
+
+  const hideDeleteModalHandler = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <Provider store={store}>
       <Fragment>
         {showModal && <ModalCard onHideModal={hideModalHandler} />}
-
+        {showDeleteModal && (
+          <ModalDeleteCard onHideModal={hideDeleteModalHandler} />
+        )}
         <Container fluid>
           <Row>
             <Header onShowModal={showModalHandler} />
@@ -54,39 +69,42 @@ function App() {
               <Route path="/home">
                 <Home />
               </Route>
-              <Route path = "/account/adm">
-                <AdminAccount/>
-                </Route>
-              <Route path = "/account" >
-                <UserAccount/>
+              <Route path="/account/adm">
+                <AdminAccount onShowModal={showModalDeleteHandler} />
               </Route>
-            
-              <Route path = "/login/adm" exact>
-                <Login/>
-                </Route>
+              <Route path="/account">
+                <UserAccount />
+              </Route>
+              <Route path="/login/adm" exact>
+                <Login />
+              </Route>
               <Route path="/order/client/summary" exact>
                 <OrderSummary />
               </Route>
               <Route path="/order/client" exact>
-                <OrderClientDetails/>
+                <OrderClientDetails />
+              </Route>
+              <Route path="/:type/:name">
+                <ItemDetails />
               </Route>
               <Route path="/order">
-                <OrderDetails/>
+                <OrderDetails />
               </Route>
               <Route path="/bikes" exact>
-                <Col md={3} >
-                <div style={{position:'sticky', top:'0'}}>
-                  <CustomBikeSidebar />
+                <Col md={3}>
+                  <div style={{ position: "sticky", top: "0" }}>
+                    <CustomBikeSidebar />
                   </div>
                 </Col>
-                <Col md={9} >
+                <Col md={9}>
                   <Bikes />
                 </Col>
               </Route>
+
               <Route path="/parts" exact>
                 <Col md={3}>
-                <div style={{position:'sticky', top:'0'}}>
-                  <CustomPartsSidebar />
+                  <div style={{ position: "sticky", top: "0" }}>
+                    <CustomPartsSidebar />
                   </div>
                 </Col>
                 <Col md={9}>
@@ -95,7 +113,7 @@ function App() {
               </Route>
               <Route path="/accessories" exact>
                 <Col md={3}>
-                  <Sidebar />
+                  <CustomAccessoriesSidebar />
                 </Col>
                 <Col md={9}>
                   <Accessories />
@@ -103,7 +121,7 @@ function App() {
               </Route>
               <Route path="/workshop" exact>
                 <Col md={3}>
-                  <Sidebar />
+                  <CustomWorkshopSidebar />
                 </Col>
                 <Col md={9}>
                   <Workshop />
@@ -112,14 +130,12 @@ function App() {
               <Route path="/" exact>
                 <Redirect to="/home" />
               </Route>
-              <Route path="/:type/:name">
-                <ItemDetails />
-              </Route>
+
               <Route path="/register" exact>
-                <RegisterPage/>
+                <RegisterPage />
               </Route>
               <Route path="/login" exact>
-                <LoginPage/>
+                <LoginPage />
               </Route>
               <Route path="*">
                 <NotFound />
@@ -134,5 +150,4 @@ function App() {
     </Provider>
   );
 }
-
 export default App;

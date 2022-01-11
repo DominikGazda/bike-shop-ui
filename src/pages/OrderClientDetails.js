@@ -16,22 +16,6 @@ const OrderClientDetails = () => {
             <Row>
                 <OrderClientForm/>
             </Row>
-            {/* <hr/>
-            <Row>
-                <ShipmentDetails deliveryPrice={deliveryPrice} deliveryName = {deliveryName}/>
-            </Row>
-            <hr/>
-            <Row>
-                <PaymentMethod/>           
-            </Row>
-            <hr/>
-            <Row>
-                <OrderAgreements/>
-            </Row>
-            <hr/>
-            <Row>
-             <OrderClientSummaryCart deliveryPrice={deliveryPrice}/>
-            </Row> */}
         </Fragment>
     );
 }

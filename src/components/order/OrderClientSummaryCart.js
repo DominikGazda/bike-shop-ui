@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const OrderClientSummaryCart = (props) => {
     const totalPrice = useSelector(state => state.items.itemsPrice);
-    // const deliveryPrice = useSelector(state => state.items.deliveryPrice);
     const deliveryPrice = props.deliveryPrice;
 
     return (
@@ -17,14 +16,6 @@ const OrderClientSummaryCart = (props) => {
               Kosz dostawy: {deliveryPrice === 0 ? <b style={{color:"green"}}>GRATIS</b>: <b>{deliveryPrice} zł</b>} 
               <hr/>
               Do zapłaty: {totalPrice + deliveryPrice} zł
-              {/* <Button
-                variant="primary"
-                href=""
-                target="_blank"
-                style={{ marginTop: "10px" }}
-              >
-                Kupuję i płacę
-              </Button> */}
             </Card.Text>
           </Card.Body>
         </Card>

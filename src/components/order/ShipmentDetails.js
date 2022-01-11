@@ -4,8 +4,6 @@ const ShipmentDetails = (props) =>{
 
     const {deliveryPrice, deliveryName} = {...props};
 
-
-
     return(
         <div style={{backgroundColor:"white"}}>
              <h1>Sposób i adres dostawy</h1>

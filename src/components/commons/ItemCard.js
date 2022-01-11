@@ -4,25 +4,30 @@ import classes from "./ItemCard.module.css";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
+const ItemCard = (props) => {
+  const modifiedLink = props.name?.replaceAll(" ", "-");
 
-
-const ItemCard= (props) => {
-  
-  const modifiedLink = props.name.replaceAll(" ","-");
-  console.log(props.image);
   return (
-    <Card className="m-4" key={props.id} style={{ width: "14rem", position:'static'}}>
-    <Card.Img variant="top" src={props.image.imageUrl} />
-    <Card.Body >
-      <Card.Title>{props.name}</Card.Title>
-      <Card.Text>{props.price}</Card.Text>
-      <Link to={`/${props.type.toLowerCase()}/${modifiedLink}`}>
-      <Button variant="primary" href="" target="_blank">
-        More Info
-      </Button>
-      </Link>
-    </Card.Body>
-  </Card>
+    <Card
+      className="m-4"
+      key={props.id}
+      style={{ width: "14rem", position: "static", height: "30rem" }}
+    >
+      <Card.Img
+        variant="top"
+        src={props.image?.imageUrl}
+        style={{ height: "20rem" }}
+      />
+      <Card.Body>
+        <Card.Title>{props.name}</Card.Title>
+        <Card.Text>{props.price}</Card.Text>
+        <Link to={`/${props.type.toLowerCase()}/${modifiedLink}`}>
+          <Button variant="primary" href="" target="_blank">
+            Szczegóły
+          </Button>
+        </Link>
+      </Card.Body>
+    </Card>
   );
 };
 

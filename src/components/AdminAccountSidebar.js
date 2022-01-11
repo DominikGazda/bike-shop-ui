@@ -4,7 +4,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { InfoCircleFill, CartFill, Screwdriver, Power, PlusCircleFill} from 'react-bootstrap-icons';
+import { InfoCircleFill, CartFill, Screwdriver, Power, PlusCircleFill, DashCircleFill, GearFill} from 'react-bootstrap-icons';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
@@ -65,13 +65,76 @@ export default function AdminAccountSidebar() {
     }
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [secondAnchorEl, setSecondAnchorEl] = React.useState(null);
+    const [modifyAnchorEl, setModifyAnchorEl] = React.useState(null);
+    const secondOpen = Boolean(secondAnchorEl);
+    const modifyOpen = Boolean(modifyAnchorEl);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+
+    const handleSecondClick = (event) => {
+      setSecondAnchorEl(event.currentTarget);
+    }
+
+    const handleModifyClick = (event) => {
+      setModifyAnchorEl(event.currentTarget);
+    }
+
+    const handleClose = (e) => {
         setAnchorEl(null);
+        switch(e.target.innerText){
+          case 'Rowery':
+            history.push('/account/adm/add/bikes');
+            break;
+          case 'Części':
+            history.push('/account/adm/add/parts');
+            break;
+          case 'Akcesoria':
+            history.push('/account/adm/add/accessories'); 
+            break;
+          case 'Warsztat':
+            history.push('/account/adm/add/workshop');  
+            break;  
+        }
     };
+
+       const handleCloseDelete = (e) => {
+        setSecondAnchorEl(null);
+        switch(e.target.innerText){
+          case 'Rowery':
+            history.push('/account/adm/delete/bikes');
+            break;
+          case 'Części':
+            history.push('/account/adm/delete/parts');
+            break;
+          case 'Akcesoria':
+            history.push('/account/adm/delete/accessories'); 
+            break;
+          case 'Warsztat':
+            history.push('/account/adm/delete/workshop');  
+            break;  
+        }
+    };
+
+    const handleCloseModify = (e) => {
+       setModifyAnchorEl(null);
+        switch(e.target.innerText){
+          case 'Rowery':
+            history.push('/account/adm/modify/bikes');
+            break;
+          case 'Części':
+            history.push('/account/adm/modify/parts');
+            break;
+          case 'Akcesoria':
+            history.push('/account/adm/modify/accessories'); 
+            break;
+          case 'Warsztat':
+            history.push('/account/adm/modify/workshop');  
+            break;  
+        }
+       }
 
   return (
     <Paper sx={{ width: 320, maxWidth: '100%' }}>
@@ -84,7 +147,7 @@ export default function AdminAccountSidebar() {
           </Typography>
         </MenuItem>
         </Link>
-        <Link to="/account/orders" style={{textDecoration:'none', color:'black'}}>
+        <Link to="/account/adm/orders" style={{textDecoration:'none', color:'black'}}>
         <MenuItem>
           <ListItemText>Zamówienia</ListItemText>
           <Typography variant="body2" color="text.secondary">
@@ -96,9 +159,6 @@ export default function AdminAccountSidebar() {
     
         <div style={{width:'100%', height:'100%', margin:'0',  padding:'0'}}>
       <Button
-        // id="demo-customized-button"
-        // aria-controls="demo-customized-menu"
-        // aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         disableElevation
         onClick={handleClick}
@@ -110,7 +170,7 @@ export default function AdminAccountSidebar() {
           </Typography>
       </Button>
       <StyledMenu
-        id="demo-customized-menu"
+        id="demo"
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
         }}
@@ -133,12 +193,90 @@ export default function AdminAccountSidebar() {
       </StyledMenu>
     </div>
         </MenuItem>
+          <MenuItem>
+    
+        <div style={{width:'100%', height:'100%', margin:'0',  padding:'0'}}>
+      <Button
+        aria-expanded={secondOpen ? 'true' : undefined}
+        disableElevation
+        onClick={handleSecondClick}
+        style={{width:'100%', height:'100%', color:'black', textAlign:'left', padding:'0', textTransform:'none'}}
+      >
+        <ListItemText>Usuń</ListItemText>
+        <Typography variant="body2" color="text.secondary">
+        <DashCircleFill/>
+          </Typography>
+      </Button>
+      <StyledMenu
+        id="demo-customized"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={secondAnchorEl}
+        open={secondOpen}
+        onClose={handleCloseDelete}
+      >
+        <MenuItem onClick={handleCloseDelete} disableRipple>
+          Rowery
+        </MenuItem>
+        <MenuItem onClick={handleCloseDelete} disableRipple>
+          Części
+        </MenuItem>
+        <MenuItem onClick={handleCloseDelete} disableRipple>
+          Akcesoria
+        </MenuItem>
+        <MenuItem onClick={handleCloseDelete} disableRipple>
+          Warsztat
+        </MenuItem>
+      </StyledMenu>
+    </div>
+        </MenuItem>
         <MenuItem>
-          <ListItemText>Ustawienia</ListItemText>
+    
+    <div style={{width:'100%', height:'100%', margin:'0',  padding:'0'}}>
+  <Button
+    aria-expanded={modifyOpen ? 'true' : undefined}
+    disableElevation
+    onClick={handleModifyClick}
+    style={{width:'100%', height:'100%', color:'black', textAlign:'left', padding:'0', textTransform:'none'}}
+  >
+    <ListItemText>Modyfikuj</ListItemText>
+    <Typography variant="body2" color="text.secondary">
+    <GearFill/>
+      </Typography>
+  </Button>
+  <StyledMenu
+    id="demo"
+    MenuListProps={{
+      'aria-labelledby': 'demo-customized-button',
+    }}
+    anchorEl={modifyAnchorEl}
+    open={modifyOpen}
+    onClose={handleCloseModify}
+  >
+    <MenuItem onClick={handleCloseModify} disableRipple>
+      Rowery
+    </MenuItem>
+    <MenuItem onClick={handleCloseModify} disableRipple>
+      Części
+    </MenuItem>
+    <MenuItem onClick={handleCloseModify} disableRipple>
+      Akcesoria
+    </MenuItem>
+    <MenuItem onClick={handleCloseModify} disableRipple>
+      Warsztat
+    </MenuItem>
+  </StyledMenu>
+</div>
+    </MenuItem>
+    <Link to="/account/adm/users" style={{textDecoration:'none', color:'black'}}>
+        <MenuItem>
+          <ListItemText>Użytkownicy</ListItemText>
           <Typography variant="body2" color="text.secondary">
             <Screwdriver/>
           </Typography>
         </MenuItem>
+      </Link>    
         <MenuItem onClick={logOut}>
           <ListItemText>Wyloguj</ListItemText>
           <Typography variant="body2" color="text.secondary">

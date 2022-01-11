@@ -67,8 +67,6 @@ const OrderSummary = (props) => {
         }});
     }
 
-
-
     return (
         <Row>
             <Col md={6} style={{textAlign:"center"}}>

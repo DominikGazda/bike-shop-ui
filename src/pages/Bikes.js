@@ -26,7 +26,6 @@ const Bikes = () => {
         }
     }
 
-    console.log(url);
     const fetchApi = async() =>{
         try{
           setIsLoading(true);

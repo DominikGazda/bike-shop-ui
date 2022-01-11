@@ -37,33 +37,7 @@ const Reviews = () => {
           </Col>
       ))}
     </Row>
-    );
-      // <Row style={{alignItems: "center"}}>
-      //   <Col md={4}>
-      //     <ReviewCard 
-      //       id={test.id}
-      //       name={test.name}
-      //       opinion={test.opinion}
-      //       image={test.image}
-      //     />
-      //   </Col>
-      //   <Col md={4}>
-      //   <ReviewCard 
-      //       id={test.id}
-      //       name={test.name}
-      //       opinion={test.opinion}
-      //       image={test.image}
-      //     />
-      //   </Col>
-      //   <Col md={4}>
-      //   <ReviewCard 
-      //       id={test.id}
-      //       name={test.name}
-      //       opinion={test.opinion}
-      //       image={test.image}
-      //     />
-      //   </Col>
-      
+    );    
 }
 
 export default Reviews;

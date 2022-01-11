@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../commons/ItemCard";
 
 const PartsList = (props) => {
-  // const dispatch = useDispatch();
-  // dispatch({type:'FETCH_PARTS'});
-  // const partsData = useSelector(selector => selector.fetchItems);
 
   const partsData = props.partsData;
     return (

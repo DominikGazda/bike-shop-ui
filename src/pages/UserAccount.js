@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import apiSpec from '../api/apiSpec';
 import AccountOptions from "./AccountOptions";
+import UserService from "./UserService";
 
 const UserAccount = (props) => {
     const dispatch = useDispatch();
@@ -59,6 +60,9 @@ const UserAccount = (props) => {
             </Route>
             <Route path="/account/options" exact>
                 <AccountOptions userDetails={user}/>
+            </Route>
+            <Route path="/account/service" exact>
+                <UserService userDetails={user}/>
             </Route>
         </Switch>
           </Col>
