@@ -43,7 +43,7 @@ npm start
 ### Home page
 * Path: /home
 * Displays customer reviews, bicycle news and an advertising banner for the store
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/home.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/home.png" />
 
 ### Product list page
 * Path (depends on wchich category we choose): 
@@ -53,7 +53,7 @@ npm start
     - /workshop 
 * Displays product list
 * Displays sidebar with filters
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/parts.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/parts.png" />
 
 ### Product details page
 * Path (depends on wchich category we choose): 
@@ -62,32 +62,32 @@ npm start
     - /bikes/{product_name}, 
     - /workshop/{product_name} 
 * Displays product details
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/details.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/details.png" />
 
 ### Customer cart
 * Path: modal window
 * Displays all product that user ordered
 * Counts total price of ordered items
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/cart.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/cart.png" />
 
 ### Order summary page
 * Path: /order
 * Displays details about product that user ordered
 * Allows to choose the method of delivery
 * Counts total price (with delivery price)
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/order-summary.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/order-summary.png" />
 
 ### Order address page
 * Path: /order/client
 * Allows to change ordering addres (default order address is taken from account details)
 * Allows to choose the paying method
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/order-details.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/order-details.png" />
 
 ### Registration page
 * Path: /register
 * Allows to create an user account
 * The registration form is validate by using React.js library - Fromik
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/registration.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/registration.png" />
 
 ### User account page
 * Path: 
@@ -100,7 +100,7 @@ npm start
 * Allows to make an appointment in bike shop service
 * Allows to change account details
 * Allows to logout from an account
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/user.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/user.png" />
 
 ### Admin account page
 * Path: 
@@ -119,5 +119,5 @@ npm start
 * Allows to delete product from the shop
 * Allows to modify product in the shop
 * Allows to manage all accounts in application
-<img src = "https://github.com/DominikGazda/bike-shop-api/blob/develop/images/admin.png" />
+<img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/admin.png" />
 
