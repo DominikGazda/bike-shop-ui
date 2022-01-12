@@ -5,7 +5,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#Features)
-* [Rest documentation](#rest-documentation)
+* [User Interface](user-interface--example-views)
 
 ## General info
 A web application that allows you to manage or place orders in an online store, depending on the administrator or customer role assigned to the user.
@@ -86,7 +86,7 @@ npm start
 ### Registration page
 * Path: /register
 * Allows to create an user account
-* The registration form is validate by using React.js library - Fromik
+* The registration form is validate by using React.js library - Formik
 <img src = "https://github.com/DominikGazda/bike-shop-ui/blob/develop/images/registration.png" />
 
 ### User account page
