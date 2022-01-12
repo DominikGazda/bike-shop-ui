@@ -5,7 +5,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#Features)
-* [User Interface](user-interface--example-views)
+* [User Interface](user-interface---example-views)
 
 ## General info
 A web application that allows you to manage or place orders in an online store, depending on the administrator or customer role assigned to the user.
